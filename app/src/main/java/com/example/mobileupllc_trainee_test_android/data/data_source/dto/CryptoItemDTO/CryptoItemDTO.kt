@@ -1,5 +1,8 @@
 package com.example.mobileupllc_trainee_test_android.data.data_source.dto.CryptoItemDTO
 
+import com.example.mobileupllc_trainee_test_android.domain.model.CryptoItem
+import com.example.mobileupllc_trainee_test_android.domain.model.CryptoItemDetail
+
 data class CryptoItemDTO(
     val additional_notices: List<Any>,
     val asset_platform_id: Any,
@@ -34,4 +37,13 @@ data class CryptoItemDTO(
     val status_updates: List<Any>,
     val symbol: String,
     val tickers: List<Ticker>
-)
+) {
+    fun toCryptoDetail(): CryptoItemDetail {
+        return CryptoItemDetail(
+            name = name,
+            image = image.large,
+            description = description.en,
+            categories = categories.toString()
+        )
+    }
+}

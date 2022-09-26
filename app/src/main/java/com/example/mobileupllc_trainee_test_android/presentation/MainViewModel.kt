@@ -6,7 +6,7 @@ import com.example.mobileupllc_trainee_test_android.domain.use_cases.GetCryptoLi
 
 class MainViewModel: ViewModel() {
 
-    private val repository = CryptoListRepositoryImpl
+    private val repository = CryptoListRepositoryImpl()
 
     private val getCryptoListUseCase = GetCryptoListUseCase(repository)
 

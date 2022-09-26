@@ -1,5 +1,7 @@
 package com.example.mobileupllc_trainee_test_android.data.data_source.dto.CryptoListDTO
 
+import com.example.mobileupllc_trainee_test_android.domain.model.CryptoItem
+
 data class CryptoListDTOItem(
     val ath: Double,
     val ath_change_percentage: Double,
@@ -27,4 +29,15 @@ data class CryptoListDTOItem(
     val symbol: String,
     val total_supply: Double,
     val total_volume: Long
-)
+) {
+    fun toCrypto(): CryptoItem {
+        return CryptoItem(
+            id = id,
+            symbol = symbol,
+            name = name,
+            image = image,
+            currentPrice = current_price,
+            priceChangePercentage24h = price_change_percentage_24h
+        )
+    }
+}
