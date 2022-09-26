@@ -1,5 +1,7 @@
 package com.example.mobileupllc_trainee_test_android.data.data_source.dto.CryptoItemDTO
 
+import com.google.gson.annotations.SerializedName
+
 data class Localization(
     val ar: String,
     val bg: String,
@@ -16,7 +18,8 @@ data class Localization(
     val hr: String,
     val hu: String,
     val id: String,
-    val `it`: String,
+    @SerializedName("`it`")
+    val it: String,
     val ja: String,
     val ko: String,
     val lt: String,
@@ -34,5 +37,6 @@ data class Localization(
     val uk: String,
     val vi: String,
     val zh: String,
-    val zh-tw: String
+    @SerializedName("zh-tw")
+    val zh_tw: String
 )
