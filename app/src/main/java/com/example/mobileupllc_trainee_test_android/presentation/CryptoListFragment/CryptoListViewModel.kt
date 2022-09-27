@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mobileupllc_trainee_test_android.domain.use_cases.GetCryptoListUseCase
 import com.example.mobileupllc_trainee_test_android.util.ResponseState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 import java.util.Currency
 import javax.inject.Inject
 
+@HiltViewModel
 class CryptoListViewModel @Inject constructor(
     private val getCryptoListUseCase: GetCryptoListUseCase
 ): ViewModel() {

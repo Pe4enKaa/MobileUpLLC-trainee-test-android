@@ -19,6 +19,7 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -30,33 +31,47 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_usd"
-                android:layout_width="89dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="64dp"
-                android:text="USD"
-                android:fontFamily="@font/roboto_regular"
-                android:textAlignment="center"
-                android:textColor="#FFAD25"
-                app:chipBackgroundColor="#F6E8BC"
-                app:chipCornerRadius="16dp"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                app:singleSelection="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" >
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_eur"
-                android:layout_width="89dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="64dp"
-                android:text="EUR"
-                android:fontFamily="@font/roboto_regular"
-                android:textAlignment="center"
-                app:chipCornerRadius="16dp"
-                app:layout_constraintStart_toEndOf="@+id/chip_usd"
-                app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_usd"
+                    android:layout_width="89dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_marginTop="64dp"
+                    android:text="USD"
+                    android:checked="true"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textAlignment="center"
+                    app:chipCornerRadius="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_eur"
+                    android:layout_width="89dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="64dp"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:text="EUR"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textAlignment="center"
+                    app:chipCornerRadius="16dp"
+                    app:layout_constraintStart_toEndOf="@+id/chip_usd"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </com.google.android.material.chip.ChipGroup>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -64,7 +79,7 @@
         android:id="@+id/line_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#4E4D4D"
+        android:background="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_currency"
@@ -84,7 +99,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_crypto"
         tools:listitem="@layout/item_crypto"
-        android:layout_width="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

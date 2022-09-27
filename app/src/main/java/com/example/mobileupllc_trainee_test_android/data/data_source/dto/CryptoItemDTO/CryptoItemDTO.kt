@@ -14,7 +14,6 @@ data class CryptoItemDTO(
     val community_score: Double,
     val country_origin: String,
     val description: Description,
-    val detail_platforms: DetailPlatforms,
     val developer_data: DeveloperData,
     val developer_score: Double,
     val genesis_date: String,
