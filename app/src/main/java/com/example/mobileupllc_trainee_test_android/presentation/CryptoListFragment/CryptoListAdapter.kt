@@ -12,6 +12,8 @@ import java.text.DecimalFormat
 
 class CryptoListAdapter : ListAdapter<CryptoItem, CryptoItemViewHolder>(CryptoItemDiffCallback()) {
 
+     var onCryptoItemClickListener: ((CryptoItem) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoItemViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_crypto, parent, false)
@@ -36,6 +38,10 @@ class CryptoListAdapter : ListAdapter<CryptoItem, CryptoItemViewHolder>(CryptoIt
                 R.color.green))
             holder.priceChangeCrypto.text =
                 "+" + String.format("%.2f", cryptoItem.priceChangePercentage24h) + "%"
+        }
+
+        holder.itemView.setOnClickListener {
+            onCryptoItemClickListener?.invoke(cryptoItem)
         }
 
     }

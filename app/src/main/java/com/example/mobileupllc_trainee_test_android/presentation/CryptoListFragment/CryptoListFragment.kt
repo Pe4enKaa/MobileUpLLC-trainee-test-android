@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.example.mobileupllc_trainee_test_android.R
 import com.example.mobileupllc_trainee_test_android.databinding.CryptoListFragmentBinding
+import com.example.mobileupllc_trainee_test_android.presentation.CryptoItemFragment.CryptoItemFragment
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +30,8 @@ class CryptoListFragment: Fragment() {
 
     private lateinit var cryptoListAdapter: CryptoListAdapter
 
+    private var cryptoItemFragment = CryptoItemFragment()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +48,22 @@ class CryptoListFragment: Fragment() {
         setupRecyclerView()
 
         setupCurrency()
+
+        setupTransitionCryptoItem()
+    }
+
+    private fun setupTransitionCryptoItem() {
+        cryptoListAdapter.onCryptoItemClickListener = {
+            cryptoItemFragment.apply {
+                arguments = Bundle().apply {
+                    putString("idCrypto", it.id)
+                }
+            }
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.nav_host_fragment, cryptoItemFragment)
+                ?.addToBackStack(null)
+                ?.commit()
+        }
     }
 
     private fun setupCurrency() {
@@ -64,22 +85,22 @@ class CryptoListFragment: Fragment() {
     override fun onStart() {
         super.onStart()
         viewModel.getCryptoList("usd")
-        setData()
+        setDataList()
     }
 
-    private fun setData() {
+    private fun setDataList() {
         CoroutineScope(Dispatchers.Main).launch {
             viewModel.cryptoList.collect{
                 when {
                     it.loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
+                        binding.progressBarList.visibility = View.VISIBLE
                     }
                     it.error.isNotBlank() -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarList.visibility = View.GONE
                         Toast.makeText(context, it.error, Toast.LENGTH_LONG).show()
                     }
                     it.cryptoList.isNotEmpty() -> {
-                        binding.progressBar.visibility = View.GONE
+                        binding.progressBarList.visibility = View.GONE
                         cryptoListAdapter.submitList(it.cryptoList)
                     }
                 }

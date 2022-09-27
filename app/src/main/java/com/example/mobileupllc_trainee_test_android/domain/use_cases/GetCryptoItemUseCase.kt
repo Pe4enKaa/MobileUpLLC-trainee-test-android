@@ -14,7 +14,7 @@ class GetCryptoItemUseCase @Inject constructor(private val repository: CryptoLis
     operator fun invoke(id: String): Flow<ResponseState<CryptoItemDetail>> = flow {
         try {
             emit(ResponseState.Loading())
-            val cryptoList = repository.getCryptoItem(id).toCryptoDetail()
+            val cryptoList = repository.getCryptoItem(id).toCryptoItem()
             emit(ResponseState.Success(cryptoList))
         }
         catch (exception: HttpException) {

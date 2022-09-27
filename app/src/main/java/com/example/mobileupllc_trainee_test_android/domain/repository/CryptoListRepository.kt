@@ -1,7 +1,7 @@
 package com.example.mobileupllc_trainee_test_android.domain.repository
 
-import com.example.mobileupllc_trainee_test_android.data.data_source.dto.CryptoItemDTO.CryptoItemDTO
 import com.example.mobileupllc_trainee_test_android.data.data_source.dto.CryptoListDTO.CryptoListDTO
+import com.example.relevelandroidproject.data.data_source.dto.CoinDetailDTO.CryptoItemDTO
 
 interface CryptoListRepository {
 
