@@ -2,6 +2,7 @@ package com.example.mobileupllc_trainee_test_android.presentation.CryptoItemFrag
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mobileupllc_trainee_test_android.domain.model.CryptoItemDetail
 import com.example.mobileupllc_trainee_test_android.domain.use_cases.GetCryptoItemUseCase
 import com.example.mobileupllc_trainee_test_android.util.ResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,20 +18,20 @@ class CryptoItemViewModel @Inject constructor(
     private val getCryptoItemUseCase: GetCryptoItemUseCase
 ): ViewModel() {
 
-    private val _cryptoItem = MutableStateFlow(CryptoItemState())
-    val cryptoItem: StateFlow<CryptoItemState> = _cryptoItem
+    private val _cryptoItemValue = MutableStateFlow(CryptoItemState())
+    var cryptoItemValue: StateFlow<CryptoItemState> = _cryptoItemValue
 
     fun getCryptoItem(id: String) = viewModelScope.launch(Dispatchers.IO) {
         getCryptoItemUseCase(id).collect {
             when(it) {
-                is ResponseState.Loading -> {
-                    _cryptoItem.value = CryptoItemState(loading = true)
-                }
                 is ResponseState.Success -> {
-                    _cryptoItem.value = CryptoItemState(cryptoItem = it.data)
+                    _cryptoItemValue.value = CryptoItemState(cryptoItem = it.data)
+                }
+                is ResponseState.Loading -> {
+                    _cryptoItemValue.value = CryptoItemState(loading = true)
                 }
                 is ResponseState.Error -> {
-                    _cryptoItem.value = CryptoItemState(error = it.message ?: "Непредвиденная ошибка")
+                    _cryptoItemValue.value = CryptoItemState(error = it.message ?: "Непредвиденная ошибка")
                 }
             }
         }

@@ -16,11 +16,10 @@ class GetCryptoItemUseCase @Inject constructor(private val repository: CryptoLis
             emit(ResponseState.Loading())
             val cryptoList = repository.getCryptoItem(id).toCryptoItem()
             emit(ResponseState.Success(cryptoList))
-        }
-        catch (exception: HttpException) {
-            emit(ResponseState.Error(exception.localizedMessage?: "Произошла непредвиденная ошибка"))
-        }
-        catch (exception: IOException) {
+        } catch (exception: HttpException) {
+            emit(ResponseState.Error(exception.localizedMessage
+                ?: "Произошла непредвиденная ошибка"))
+        } catch (exception: IOException) {
             emit(ResponseState.Error("Произошла ошибка"))
         }
     }

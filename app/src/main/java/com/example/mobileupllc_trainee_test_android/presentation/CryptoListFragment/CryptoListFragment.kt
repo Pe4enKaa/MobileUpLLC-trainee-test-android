@@ -73,10 +73,12 @@ class CryptoListFragment: Fragment() {
                 R.id.chip_usd -> {
                     Log.e("chipGroup", chip.text.toString())
                     viewModel.getCryptoList("usd")
+                    setDataList()
                 }
                 R.id.chip_eur -> {
                     Log.e("chipGroup", chip.text.toString())
                     viewModel.getCryptoList("eur")
+                    setDataList()
                 }
             }
         }
